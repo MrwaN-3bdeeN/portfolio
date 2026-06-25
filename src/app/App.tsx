@@ -31,6 +31,9 @@ import {
   GraduationCap,
   Languages,
   Briefcase,
+  Heart,
+  Lightbulb,
+  Coffee,
 } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import profilePhoto from "@/imports/462622556_2971524512998750_2784159991432789406_n__1_.jpg";
@@ -110,11 +113,14 @@ const EXPERIENCE = [
   },
 ];
 
+const PROJECT_CATEGORIES = ["All", "Full-Stack", "Database", "Frontend"];
+
 const PROJECTS = [
   {
     id: "01",
     title: "Library Management System",
-    category: "Desktop Application · C#",
+    category: "Full-Stack · Desktop Application",
+    filterCategory: "Full-Stack",
     year: "2024",
     desc: "A comprehensive library management system using C# with Windows Forms and SQL Server. Features include book management, user handling, search, sales tracking, and receipt printing.",
     link: "https://github.com/MrwaN-3bdeeN/Business-Management",
@@ -124,7 +130,8 @@ const PROJECTS = [
   {
     id: "02",
     title: "Examination System of ITI",
-    category: "Database Project · SQL Server",
+    category: "Database · SQL Server",
+    filterCategory: "Database",
     year: "2025",
     desc: "A full examination database system handling students, instructors, exams, courses, and grades with MCQ and True/False support. Built with stored procedures, triggers, cursors, and temporary tables.",
     link: "https://github.com/MrwaN-3bdeeN/examination-system-db",
@@ -134,7 +141,8 @@ const PROJECTS = [
   {
     id: "03",
     title: "Adeem Portfolio Website",
-    category: "Front-End · Responsive Design",
+    category: "Frontend · Responsive Design",
+    filterCategory: "Frontend",
     year: "2024",
     desc: "A complete responsive website for a Saudi Arabian client built with HTML, CSS, and JavaScript — no frameworks. Optimized for mobile, tablet, and desktop with focus on performance and accessibility.",
     link: "https://github.com/MrwaN-3bdeeN/ADEEM",
@@ -428,6 +436,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [showTop, setShowTop] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [projectFilter, setProjectFilter] = useState("All");
   const scrollProgress = useScrollProgress();
   const activeSection = useActiveSection();
 
@@ -684,7 +693,7 @@ export default function App() {
         <div className="section-divider" />
         <section id="about" className="border-t border-border bg-secondary relative">
           <div className="absolute inset-0 grid-pattern opacity-20 pointer-events-none" />
-          <div className="relative max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
+          <div className="relative max-w-6xl mx-auto px-6 md:px-12 py-14 md:py-28">
             <div className="grid md:grid-cols-12 gap-10 md:gap-14 items-center">
               <Reveal className="md:col-span-6">
                 <p className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground mb-5" style={{ fontFamily: "'DM Mono', monospace" }}>
@@ -741,7 +750,7 @@ export default function App() {
         <section id="services" className="border-t border-border">
           <div className="max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
             <Reveal>
-              <h2 className="text-3xl md:text-4xl mb-14" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
+              <h2 className="text-2xl md:text-4xl mb-10 md:mb-14" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
                 What I Do
               </h2>
             </Reveal>
@@ -771,9 +780,9 @@ export default function App() {
 
         {/* ═══════════ PROCESS ═══════════ */}
         <section className="border-t border-border bg-secondary">
-          <div className="max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
+          <div className="max-w-6xl mx-auto px-6 md:px-12 py-14 md:py-28">
             <Reveal>
-              <h2 className="text-3xl md:text-4xl mb-14" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
+              <h2 className="text-2xl md:text-4xl mb-10 md:mb-14" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
                 How I Work
               </h2>
             </Reveal>
@@ -819,11 +828,42 @@ export default function App() {
           <Marquee />
         </section>
 
+        {/* ═══════════ FUN FACTS ═══════════ */}
+        <section className="border-t border-border">
+          <div className="max-w-6xl mx-auto px-6 md:px-12 py-14 md:py-20">
+            <Reveal>
+              <div className="flex items-center gap-2.5 mb-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                <span className="text-[11px] tracking-[0.15em] uppercase text-muted-foreground" style={{ fontFamily: "'DM Mono', monospace" }}>
+                  A bit about me
+                </span>
+              </div>
+              <h2 className="text-2xl md:text-3xl mb-10" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
+                Fun Facts
+              </h2>
+            </Reveal>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+              {[
+                { icon: Coffee, text: "I debug best with a cup of coffee and a quiet room." },
+                { icon: Lightbulb, text: "I believe every good app starts with a well-designed database schema." },
+                { icon: Heart, text: "I'm passionate about building tools that make people's daily work easier." },
+              ].map((fact, i) => (
+                <Reveal key={i} delay={i * 0.1}>
+                  <motion.div className="flex items-start gap-3 p-5 border border-border hover:bg-secondary/50 transition-colors" whileHover={{ y: -2 }}>
+                    <fact.icon size={16} className="mt-0.5 flex-shrink-0 text-accent" />
+                    <p className="text-[13px] text-muted-foreground leading-relaxed">{fact.text}</p>
+                  </motion.div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ═══════════ SKILLS ═══════════ */}
         <section id="skills" className="border-t border-border bg-secondary">
-          <div className="max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
+          <div className="max-w-6xl mx-auto px-6 md:px-12 py-14 md:py-28">
             <Reveal>
-              <h2 className="text-3xl md:text-4xl mb-12" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
+              <h2 className="text-2xl md:text-4xl mb-10 md:mb-12" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
                 Skills
               </h2>
             </Reveal>
@@ -840,9 +880,9 @@ export default function App() {
         {/* ═══════════ EXPERIENCE ═══════════ */}
         <section id="experience" className="border-t border-border relative">
           <div className="absolute top-0 right-0 w-80 h-80 rounded-full opacity-[0.025] pointer-events-none" style={{ background: "radial-gradient(circle, var(--accent), transparent)" }} />
-          <div className="relative max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
+          <div className="relative max-w-6xl mx-auto px-6 md:px-12 py-14 md:py-28">
             <Reveal>
-              <h2 className="text-3xl md:text-4xl mb-14" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
+              <h2 className="text-2xl md:text-4xl mb-10 md:mb-14" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
                 Experience
               </h2>
             </Reveal>
@@ -881,7 +921,7 @@ export default function App() {
         {/* ═══════════ EDUCATION ═══════════ */}
         <div className="section-divider" />
         <section className="border-t border-border bg-secondary">
-          <div className="max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
+          <div className="max-w-6xl mx-auto px-6 md:px-12 py-14 md:py-28">
             <Reveal>
               <div className="flex items-center gap-2.5 mb-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent" />
@@ -889,7 +929,7 @@ export default function App() {
                   Education
                 </span>
               </div>
-              <h2 className="text-3xl md:text-4xl mb-12" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
+              <h2 className="text-2xl md:text-4xl mb-10 md:mb-12" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
                 Background
               </h2>
             </Reveal>
@@ -920,7 +960,7 @@ export default function App() {
 
         {/* ═══════════ LANGUAGES ═══════════ */}
         <section className="border-t border-border">
-          <div className="max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
+          <div className="max-w-6xl mx-auto px-6 md:px-12 py-14 md:py-28">
             <Reveal>
               <div className="flex items-center gap-2.5 mb-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent" />
@@ -928,7 +968,7 @@ export default function App() {
                   Languages
                 </span>
               </div>
-              <h2 className="text-3xl md:text-4xl mb-12" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
+              <h2 className="text-2xl md:text-4xl mb-10 md:mb-12" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
                 Communication
               </h2>
             </Reveal>
@@ -964,7 +1004,7 @@ export default function App() {
 
         {/* ═══════════ TESTIMONIALS ═══════════ */}
         <section className="border-t border-border bg-secondary">
-          <div className="max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
+          <div className="max-w-6xl mx-auto px-6 md:px-12 py-14 md:py-28">
             <Reveal>
               <div className="flex items-center gap-2.5 mb-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent" />
@@ -972,7 +1012,7 @@ export default function App() {
                   Feedback
                 </span>
               </div>
-              <h2 className="text-3xl md:text-4xl mb-12" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
+              <h2 className="text-2xl md:text-4xl mb-10 md:mb-12" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
                 What People Say
               </h2>
             </Reveal>
@@ -999,10 +1039,10 @@ export default function App() {
 
         {/* ═══════════ PROJECTS ═══════════ */}
         <section id="work" className="border-t border-border">
-          <div className="max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
+          <div className="max-w-6xl mx-auto px-6 md:px-12 py-16 md:py-24">
             <Reveal>
-              <div className="flex items-baseline justify-between mb-14">
-                <h2 className="text-3xl md:text-4xl" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
+              <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-4 mb-8">
+                <h2 className="text-2xl md:text-4xl" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
                   Selected Projects
                 </h2>
                 <a href="https://github.com/MrwaN-3bdeeN" target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors" style={{ fontFamily: "'DM Mono', monospace" }}>
@@ -1011,62 +1051,87 @@ export default function App() {
               </div>
             </Reveal>
 
-            <div className="space-y-0">
-              {PROJECTS.map((project, i) => (
-                <Reveal key={project.id} delay={i * 0.08}>
-                  <motion.a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group border-t border-border last:border-b block"
-                    whileHover={{ x: 3 }}
-                    transition={{ duration: 0.2 }}
+            <Reveal delay={0.05}>
+              <div className="flex gap-2 mb-8 overflow-x-auto pb-1">
+                {PROJECT_CATEGORIES.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setProjectFilter(cat)}
+                    className={`text-[11px] px-3 py-1.5 border whitespace-nowrap transition-all duration-200 ${
+                      projectFilter === cat
+                        ? "border-accent text-accent bg-accent/5"
+                        : "border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+                    }`}
+                    style={{ fontFamily: "'DM Mono', monospace" }}
                   >
-                    <div className="py-7 md:py-9 grid md:grid-cols-12 gap-5 items-start">
-                      <div className="md:col-span-1">
-                        <span className="text-xs text-muted-foreground group-hover:text-accent transition-colors" style={{ fontFamily: "'DM Mono', monospace" }}>
-                          {project.id}
-                        </span>
-                      </div>
-                      <div className="md:col-span-3 overflow-hidden bg-muted relative gradient-border">
-                        <img
-                          src={`https://images.unsplash.com/${project.image}?w=600&h=400&fit=crop&auto=format`}
-                          alt={project.title}
-                          className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-700"
-                          loading="lazy"
-                          width="600"
-                          height="400"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </div>
-                      <div className="md:col-span-6">
-                        <p className="text-[11px] text-muted-foreground mb-1.5" style={{ fontFamily: "'DM Mono', monospace" }}>
-                          {project.category}
-                        </p>
-                        <h3 className="text-lg md:text-xl mb-2 group-hover:text-accent transition-colors duration-300" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
-                          {project.title}
-                        </h3>
-                        <p className="text-[13px] text-muted-foreground leading-relaxed mb-3 max-w-md">
-                          {project.desc}
-                        </p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {project.tags.map((tag) => (
-                            <span key={tag} className="text-[10px] px-1.5 py-0.5 border border-border text-muted-foreground group-hover:border-accent/30 transition-colors" style={{ fontFamily: "'DM Mono', monospace" }}>
-                              {tag}
-                            </span>
-                          ))}
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </Reveal>
+
+            <div className="space-y-0">
+              <AnimatePresence mode="wait">
+                {PROJECTS.filter((p) => projectFilter === "All" || p.filterCategory === projectFilter).map((project, i) => (
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.3, delay: i * 0.06 }}
+                  >
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group border-t border-border last:border-b block"
+                    >
+                      <div className="py-6 md:py-8 grid md:grid-cols-12 gap-4 md:gap-5 items-start">
+                        <div className="md:col-span-1">
+                          <span className="text-xs text-muted-foreground group-hover:text-accent transition-colors" style={{ fontFamily: "'DM Mono', monospace" }}>
+                            {project.id}
+                          </span>
+                        </div>
+                        <div className="md:col-span-3 overflow-hidden bg-muted relative gradient-border">
+                          <img
+                            src={`https://images.unsplash.com/${project.image}?w=600&h=400&fit=crop&auto=format`}
+                            alt={project.title}
+                            className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-700"
+                            loading="lazy"
+                            width="600"
+                            height="400"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                        <div className="md:col-span-6">
+                          <p className="text-[11px] text-muted-foreground mb-1" style={{ fontFamily: "'DM Mono', monospace" }}>
+                            {project.category}
+                          </p>
+                          <h3 className="text-lg md:text-xl mb-2 group-hover:text-accent transition-colors duration-300" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 400 }}>
+                            {project.title}
+                          </h3>
+                          <p className="text-[13px] text-muted-foreground leading-relaxed mb-3 max-w-md">
+                            {project.desc}
+                          </p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {project.tags.map((tag) => (
+                              <span key={tag} className="text-[10px] px-1.5 py-0.5 border border-border text-muted-foreground group-hover:border-accent/30 transition-colors" style={{ fontFamily: "'DM Mono', monospace" }}>
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="md:col-span-2 flex md:flex-col md:items-end md:justify-between h-full">
+                          <span className="text-[11px] text-muted-foreground hidden md:block" style={{ fontFamily: "'DM Mono', monospace" }}>
+                            {project.year}
+                          </span>
+                          <ArrowUpRight size={18} className="text-muted-foreground group-hover:text-foreground transition-colors mt-auto" />
                         </div>
                       </div>
-                      <div className="md:col-span-2 flex md:flex-col md:items-end md:justify-between h-full">
-                        <span className="text-[11px] text-muted-foreground hidden md:block" style={{ fontFamily: "'DM Mono', monospace" }}>
-                          {project.year}
-                        </span>
-                        <ArrowUpRight size={18} className="text-muted-foreground group-hover:text-foreground transition-colors mt-auto" />
-                      </div>
-                    </div>
-                  </motion.a>
-                </Reveal>
-              ))}
+                    </a>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
           </div>
         </section>
