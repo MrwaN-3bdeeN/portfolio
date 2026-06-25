@@ -1089,7 +1089,7 @@ export default function App() {
                       <div className="py-6 md:py-8 grid md:grid-cols-12 gap-4 md:gap-5 items-start">
                         <div className="md:col-span-1">
                           <span className="text-xs text-muted-foreground group-hover:text-accent transition-colors" style={{ fontFamily: "'DM Mono', monospace" }}>
-                            {project.id}
+                            {String(i + 1).padStart(2, '0')}
                           </span>
                         </div>
                         <div className="md:col-span-3 overflow-hidden bg-muted relative gradient-border">
