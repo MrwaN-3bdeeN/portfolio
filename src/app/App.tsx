@@ -178,17 +178,17 @@ const STATS = [
 
 const EDUCATION = [
   {
-    degree: "B.Sc. in Engineering",
-    school: "Faculty of Engineering, Minia University",
-    department: "Petrochemicals Department",
-    period: "2017 – 2022",
-    location: "Minya, Egypt",
-  },
-  {
     degree: "Fullstack .NET Internship",
     school: "Information Technology Institute (ITI)",
     department: "Web Development Using Fullstack .NET",
     period: "Mar 2025 – Jul 2025",
+    location: "Minya, Egypt",
+  },
+  {
+    degree: "B.Sc. in Engineering",
+    school: "Faculty of Engineering, Minia University",
+    department: "Petrochemicals Department",
+    period: "2017 – 2022",
     location: "Minya, Egypt",
   },
 ];
